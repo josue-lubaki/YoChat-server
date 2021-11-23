@@ -3,9 +3,9 @@ package yochat.server.models;
 public class Paquet {
     private User user;
     private String message;
-    private Command command;
+    private String command;
 
-    public Paquet(User user, String message, Command command) {
+    public Paquet(User user, String message, String command) {
         this.user = user;
         this.message = message;
         this.command = command;
@@ -19,7 +19,7 @@ public class Paquet {
         return message;
     }
 
-    public Command getCommand() {
+    public String getCommand() {
         return command;
     }
 
@@ -31,7 +31,7 @@ public class Paquet {
         this.message = message;
     }
 
-    public void setCommand(Command command) {
+    public void setCommand(String command) {
         this.command = command;
     }
 }

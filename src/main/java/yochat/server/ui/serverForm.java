@@ -5,6 +5,10 @@
  */
 package yochat.server.ui;
 
+import java.awt.event.ActionEvent;
+
+import yochat.server.handlers.ServerStart;
+
 /**
  *
  * @author coulibai
@@ -43,6 +47,7 @@ public class serverForm extends javax.swing.JFrame {
         btnStart.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnStart.setText("Start");
         btnStart.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnStart.addActionListener(e -> btnStartActionPerformed(e));
 
         btnStop.setBackground(new java.awt.Color(153, 0, 0));
         btnStop.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -132,6 +137,11 @@ public class serverForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnStartActionPerformed(ActionEvent e) {
+        Thread startServer = new Thread(new ServerStart());
+        startServer.start();
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -139,12 +149,12 @@ public class serverForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LblServer;
-    private javax.swing.JButton btnList;
-    private javax.swing.JButton btnStart;
-    private javax.swing.JButton btnStop;
+    public static javax.swing.JButton btnList;
+    public static javax.swing.JButton btnStart;
+    public static javax.swing.JButton btnStop;
     private javax.swing.JButton jButton2;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea taConsole;
+    public static javax.swing.JTextArea taConsole;
     // End of variables declaration//GEN-END:variables
 }
