@@ -25,7 +25,7 @@ public class ServerStart implements Runnable {
             taConsole.setCaretPosition(taConsole.getDocument().getLength());
 
             btnStart.setEnabled(false);
-            btnStop.setEnabled(true);
+            btnRefresh.setEnabled(true);
             btnList.setEnabled(true);
             btnClear.setEnabled(true);
 
@@ -43,6 +43,13 @@ public class ServerStart implements Runnable {
             taConsole.append("Error lors de la création de la Socket Server: " + e.getMessage() + "\n");
         }
 
+    }
+
+    /**
+     * Methode qui permet de supprimer tous les utilisateurs connectés
+     */
+    public static void deleteAllUsers() {
+        onlineUsers.clear();
     }
 
 }

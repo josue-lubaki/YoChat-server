@@ -48,34 +48,43 @@ public class ClientHandler implements Runnable {
                 switch (paquet.getCommand()) {
                 case Command.CONNECT:
                     // enregistrement d'un nouvel utilisateur
-                    onlineUsers.put(user, clientPrintWriter);
+                    if (onlineUsers.containsKey(paquet.getUser())) {
+                        clientPrintWriter.println("SERVEUR: Le Username [" + paquet.getUser().getUsername()
+                                + "] est déjà pris:" + Command.SERVER_ERROR);
+                        clientPrintWriter.flush();
+                        return;
+                    }
+
+                    onlineUsers.put(paquet.getUser(), clientPrintWriter);
 
                     // configurer le paquet avant de l'envoyer
+                    paquet.setMessage(user.getUsername() + " vient de se connecter ");
+                    user.setUsername("SERVEUR");
+                    paquet.setUser(user);
                     paquet.setCommand(Command.CHAT);
-                    paquet.setMessage("vient de se connecter ");
 
                     // Informer les autres d'un nouvel utilisateur
-                    notifyEveryClient(paquet);
-
-                    // Informer l'utilisateur de la connexion
-                    clientPrintWriter.println(paquet);
-                    clientPrintWriter.flush();
+                    notifyEveryClient(paquet.toString());
+                    user.setUsername(paquet.getMessage().split(" ")[0]);
                     break;
 
                 case Command.DISCONNECT:
-                    // configuer le paquet avant de l'envoyer
-                    paquet.setCommand(Command.CHAT);
-                    paquet.setMessage("vient de se déconnecter ");
-                    notifyEveryClient(paquet);
+                    // Supprimer l'utilisateur de la liste des utilisateurs connectés
+                    onlineUsers.remove(user);
 
-                    // Informer l'utilisateur de la déconnexion
-                    clientPrintWriter.println(paquet);
-                    clientPrintWriter.flush();
+                    // configurer le paquet avant de l'envoyer
+                    paquet.setMessage(user.getUsername() + " vient de se déconnecter ");
+                    user.setUsername("SERVEUR");
+                    paquet.setUser(user);
+                    paquet.setCommand(Command.CHAT);
+
+                    notifyEveryClient(paquet.toString());
+                    user.setUsername(paquet.getMessage().split(" ")[0]);
                     break;
 
                 case Command.CHAT:
                     // Informer les autres d'un nouveau message
-                    notifyEveryClient(paquet);
+                    notifyEveryClient(paquet.toString());
 
                     // TODO: envoyer message à un seul utilisateur ou groupe d'utilisateur
                     break;
@@ -91,10 +100,10 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    public static void notifyEveryClient(Paquet paquet) {
+    public static void notifyEveryClient(String message) {
         try {
             for (PrintWriter writer : onlineUsers.values()) {
-                writer.println(paquet.getUser().getUsername() + ":" + paquet.getMessage() + ":" + paquet.getCommand());
+                writer.println(message);
                 writer.flush();
             }
             taConsole.setCaretPosition(taConsole.getDocument().getLength());
