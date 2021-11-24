@@ -6,8 +6,16 @@
 package yochat.server.ui;
 
 import java.awt.event.ActionEvent;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import javax.swing.JOptionPane;
 
 import yochat.server.handlers.ServerStart;
+import yochat.server.models.Command;
+import yochat.server.models.Paquet;
+import yochat.server.models.User;
+import static yochat.server.handlers.ClientHandler.*;
 
 /**
  *
@@ -22,8 +30,8 @@ public class serverForm extends javax.swing.JFrame {
         initComponents();
     }
 
-    
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
@@ -54,15 +62,19 @@ public class serverForm extends javax.swing.JFrame {
         btnStop.setText("Stop");
         btnStop.setToolTipText("");
         btnStop.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnStop.setEnabled(false);
+        btnStop.addActionListener(e -> btnStopActionPerformed(e));
 
         jButton2.setBackground(new java.awt.Color(153, 153, 0));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton2.setText("Clear");
+        jButton2.setEnabled(false);
 
         btnList.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnList.setText("Users Online List");
+        btnList.setEnabled(false);
 
         jDesktopPane1.setLayer(LblServer, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(btnStart, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -72,36 +84,45 @@ public class serverForm extends javax.swing.JFrame {
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(btnList, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnStop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(175, 175, 175)
-                .addComponent(LblServer, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addComponent(LblServer, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnList, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnStop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(22, 22, 22))
-        );
+        jDesktopPane1Layout.setHorizontalGroup(jDesktopPane1Layout
+                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(btnList, javax.swing.GroupLayout.PREFERRED_SIZE, 137,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 74,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jDesktopPane1Layout
+                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnStop, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 81,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21))
+                .addGroup(jDesktopPane1Layout.createSequentialGroup().addGap(175, 175, 175)
+                        .addComponent(LblServer, javax.swing.GroupLayout.PREFERRED_SIZE, 86,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+        jDesktopPane1Layout.setVerticalGroup(jDesktopPane1Layout
+                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                        .addComponent(LblServer, javax.swing.GroupLayout.PREFERRED_SIZE, 43,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnStart, javax.swing.GroupLayout.PREFERRED_SIZE, 31,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jDesktopPane1Layout
+                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnList, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnStop, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(22, 22, 22)));
 
         taConsole.setEditable(false);
         taConsole.setBackground(new java.awt.Color(102, 102, 102));
@@ -116,26 +137,38 @@ public class serverForm extends javax.swing.JFrame {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jDesktopPane1).addGroup(
+                        layout.createSequentialGroup().addContainerGap().addComponent(jScrollPane1).addContainerGap()));
+        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                        .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                        .addContainerGap()));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnStopActionPerformed(ActionEvent e) {
+        try {
+            Thread.sleep(5000);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Server not started");
+            Thread.currentThread().interrupt();
+        }
+
+        notifyEveryClient(new Paquet(new User("SERVER"), "tout le monde est déconnecté", Command.CHAT));
+        taConsole.append("Server stopped\n");
+
+        btnStart.setEnabled(true);
+        btnStop.setEnabled(false);
+        btnList.setEnabled(false);
+        jButton2.setEnabled(false);
+        taConsole.removeAll();
+    }
 
     private void btnStartActionPerformed(ActionEvent e) {
         Thread startServer = new Thread(new ServerStart());
@@ -145,14 +178,13 @@ public class serverForm extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LblServer;
     public static javax.swing.JButton btnList;
     public static javax.swing.JButton btnStart;
     public static javax.swing.JButton btnStop;
-    private javax.swing.JButton jButton2;
+    public static javax.swing.JButton jButton2;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTextArea taConsole;

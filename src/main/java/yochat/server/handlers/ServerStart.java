@@ -17,7 +17,16 @@ public class ServerStart implements Runnable {
         onlineUsers = new HashMap<>();
 
         try {
-            ServerSocket serverSocket = new ServerSocket(5050);
+            ServerSocket serverSocket = new ServerSocket(5002);
+
+            taConsole.append("Server started at port 5002\n");
+            taConsole.append("Waiting for clients...\n");
+            taConsole.setCaretPosition(taConsole.getDocument().getLength());
+
+            btnStart.setEnabled(false);
+            btnStop.setEnabled(true);
+            btnList.setEnabled(true);
+            jButton2.setEnabled(true);
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
@@ -26,6 +35,7 @@ public class ServerStart implements Runnable {
                 Thread listener = new Thread(new ClientHandler(clientSocket, printWriter));
                 listener.start();
                 taConsole.append("New client connected\n");
+                taConsole.setCaretPosition(taConsole.getDocument().getLength());
             }
 
         } catch (Exception e) {

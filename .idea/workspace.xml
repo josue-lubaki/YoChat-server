@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd87e942-2cc6-4124-9d74-7d405a31321f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/yochat/server/handlers/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/yochat/server/handlers/ClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/yochat/server/handlers/ServerStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/yochat/server/handlers/ServerStart.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/yochat/server/models/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/yochat/server/models/Command.java" afterDir="false" />
@@ -52,7 +53,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1637713879492</updated>
-      <workItem from="1637713881348" duration="1944000" />
+      <workItem from="1637713881348" duration="3702000" />
     </task>
     <servers />
   </component>
