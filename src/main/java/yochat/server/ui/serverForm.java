@@ -16,6 +16,7 @@ import yochat.server.models.Command;
 import yochat.server.models.Paquet;
 import yochat.server.models.User;
 import static yochat.server.handlers.ClientHandler.*;
+import static yochat.server.handlers.ServerStart.*;
 
 /**
  *
@@ -38,7 +39,7 @@ public class serverForm extends javax.swing.JFrame {
         LblServer = new javax.swing.JLabel();
         btnStart = new javax.swing.JButton();
         btnStop = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
         btnList = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         taConsole = new javax.swing.JTextArea();
@@ -55,7 +56,7 @@ public class serverForm extends javax.swing.JFrame {
         btnStart.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnStart.setText("Start");
         btnStart.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnStart.addActionListener(e -> btnStartActionPerformed(e));
+        btnStart.addActionListener(this::btnStartActionPerformed);
 
         btnStop.setBackground(new java.awt.Color(153, 0, 0));
         btnStop.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -63,23 +64,25 @@ public class serverForm extends javax.swing.JFrame {
         btnStop.setToolTipText("");
         btnStop.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnStop.setEnabled(false);
-        btnStop.addActionListener(e -> btnStopActionPerformed(e));
+        btnStop.addActionListener(this::btnStopActionPerformed);
 
-        jButton2.setBackground(new java.awt.Color(153, 153, 0));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton2.setText("Clear");
-        jButton2.setEnabled(false);
+        btnClear.setBackground(new java.awt.Color(153, 153, 0));
+        btnClear.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnClear.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnClear.setText("Clear");
+        btnClear.setEnabled(false);
+        btnClear.addActionListener(this::jButton2ActionPerformed);
 
         btnList.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnList.setText("Users Online List");
         btnList.setEnabled(false);
+        btnList.addActionListener(this::btnListActionPerformed);
 
         jDesktopPane1.setLayer(LblServer, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(btnStart, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(btnStop, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btnClear, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(btnList, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
@@ -91,7 +94,7 @@ public class serverForm extends javax.swing.JFrame {
                         .addComponent(btnList, javax.swing.GroupLayout.PREFERRED_SIZE, 137,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 74,
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 74,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jDesktopPane1Layout
@@ -118,7 +121,7 @@ public class serverForm extends javax.swing.JFrame {
                         .addGroup(jDesktopPane1Layout
                                 .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(btnList, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnStop, javax.swing.GroupLayout.DEFAULT_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -166,13 +169,26 @@ public class serverForm extends javax.swing.JFrame {
         btnStart.setEnabled(true);
         btnStop.setEnabled(false);
         btnList.setEnabled(false);
-        jButton2.setEnabled(false);
+        btnClear.setEnabled(false);
         taConsole.removeAll();
+    }
+
+    private void btnListActionPerformed(ActionEvent e) {
+        taConsole.append("Liste des clients connectés :\n");
+        for (User user : onlineUsers.keySet()) {
+            taConsole.append(user.getUsername() + "\n");
+            taConsole.setCaretPosition(taConsole.getDocument().getLength());
+        }
     }
 
     private void btnStartActionPerformed(ActionEvent e) {
         Thread startServer = new Thread(new ServerStart());
         startServer.start();
+    }
+
+    private void jButton2ActionPerformed(ActionEvent e) {
+        // effacer les contenues de taConsole
+        taConsole.removeAll();
     }
 
     /**
@@ -184,7 +200,7 @@ public class serverForm extends javax.swing.JFrame {
     public static javax.swing.JButton btnList;
     public static javax.swing.JButton btnStart;
     public static javax.swing.JButton btnStop;
-    public static javax.swing.JButton jButton2;
+    public static javax.swing.JButton btnClear;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTextArea taConsole;
