@@ -34,23 +34,27 @@ public class serverForm extends javax.swing.JFrame {
         // Code">//GEN-BEGIN:initComponents
         private void initComponents() {
 
-                jDesktopPane1 = new javax.swing.JDesktopPane();
-                LblServer = new javax.swing.JLabel();
+                javax.swing.JDesktopPane jDesktopPane1 = new javax.swing.JDesktopPane();
+                /**
+                 * @param args the command line arguments
+                 */
+                // Variables declaration - do not modify//GEN-BEGIN:variables
+                javax.swing.JLabel lblServer = new javax.swing.JLabel();
                 btnStart = new javax.swing.JButton();
                 btnRefresh = new javax.swing.JButton();
                 btnClear = new javax.swing.JButton();
                 btnList = new javax.swing.JButton();
-                jScrollPane1 = new javax.swing.JScrollPane();
+                javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
                 taConsole = new javax.swing.JTextArea();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
                 jDesktopPane1.setBackground(new java.awt.Color(186, 161, 136));
 
-                LblServer.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-                LblServer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                LblServer.setText("SERVER");
-                LblServer.setForeground(new java.awt.Color(255, 255, 255));
+                lblServer.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+                lblServer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                lblServer.setText("SERVER");
+                lblServer.setForeground(new java.awt.Color(255, 255, 255));
 
                 btnStart.setBackground(new java.awt.Color(51, 102, 0));
                 btnStart.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -79,7 +83,7 @@ public class serverForm extends javax.swing.JFrame {
                 btnList.setEnabled(false);
                 btnList.addActionListener(this::btnListActionPerformed);
 
-                jDesktopPane1.setLayer(LblServer, javax.swing.JLayeredPane.DEFAULT_LAYER);
+                jDesktopPane1.setLayer(lblServer, javax.swing.JLayeredPane.DEFAULT_LAYER);
                 jDesktopPane1.setLayer(btnStart, javax.swing.JLayeredPane.DEFAULT_LAYER);
                 jDesktopPane1.setLayer(btnRefresh, javax.swing.JLayeredPane.DEFAULT_LAYER);
                 jDesktopPane1.setLayer(btnClear, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -110,7 +114,7 @@ public class serverForm extends javax.swing.JFrame {
                                                                                 javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(21, 21, 21))
                                 .addGroup(jDesktopPane1Layout.createSequentialGroup().addGap(175, 175, 175)
-                                                .addComponent(LblServer, javax.swing.GroupLayout.PREFERRED_SIZE, 86,
+                                                .addComponent(lblServer, javax.swing.GroupLayout.PREFERRED_SIZE, 86,
                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                 Short.MAX_VALUE)));
@@ -118,7 +122,7 @@ public class serverForm extends javax.swing.JFrame {
                                 .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout
                                                 .createSequentialGroup()
-                                                .addComponent(LblServer, javax.swing.GroupLayout.PREFERRED_SIZE, 43,
+                                                .addComponent(lblServer, javax.swing.GroupLayout.PREFERRED_SIZE, 43,
                                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
                                                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -221,18 +225,10 @@ public class serverForm extends javax.swing.JFrame {
                 taConsole.setText("");
         }
 
-        /**
-         * @param args the command line arguments
-         */
-
-        // Variables declaration - do not modify//GEN-BEGIN:variables
-        private javax.swing.JLabel LblServer;
         public static javax.swing.JButton btnList;
         public static javax.swing.JButton btnStart;
         public static javax.swing.JButton btnRefresh;
         public static javax.swing.JButton btnClear;
-        private javax.swing.JDesktopPane jDesktopPane1;
-        private javax.swing.JScrollPane jScrollPane1;
         public static javax.swing.JTextArea taConsole;
         // End of variables declaration//GEN-END:variables
 }

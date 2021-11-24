@@ -84,6 +84,7 @@ public class ClientHandler implements Runnable {
 
                     notifyEveryClient(paquet.toString());
                     user.setUsername(paquet.getMessage().split(" ")[0]);
+                    clientSocket.close();
                     break;
 
                 case Command.CHAT:
@@ -114,11 +115,11 @@ public class ClientHandler implements Runnable {
                         paquet.setMessage(message);
 
                         // Envoyer le message à tous les usersToSendMessage
-                        usersToSendMessage.stream().forEach(userToSend -> {
+                        usersToSendMessage.forEach(userToSend -> {
                             // vérifier s'il est dans onlineUsers, si oui envoyer le message
                             for (User userOnline : onlineUsers.keySet()) {
                                 if (userOnline.equals(userToSend)) {
-                                    onlineUsers.get(userOnline).println(paquet.toString());
+                                    onlineUsers.get(userOnline).println(paquet);
                                     onlineUsers.get(userOnline).flush();
                                 }
                             }
