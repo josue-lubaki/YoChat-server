@@ -34,6 +34,9 @@ public class Paquet {
     public void setCommand(String command) {
         this.command = command;
     }
+
+    @Override
+    public String toString() {
+        return user.getUsername() + ":" + message + ":" + command;
+    }
 }
-
-
