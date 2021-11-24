@@ -39,9 +39,10 @@ public class ClientHandler implements Runnable {
                 data = message.split(":");
 
                 User user = new User(data[0]);
+                String command = data[2];
 
                 // Usernane : message : command
-                Paquet paquet = new Paquet(user, data[1], data[2]);
+                Paquet paquet = new Paquet(user, data[1], command);
 
                 switch (paquet.getCommand()) {
                 case Command.CONNECT:
@@ -53,19 +54,35 @@ public class ClientHandler implements Runnable {
                     paquet.setMessage("vient de se connecter ");
 
                     // Informer les autres d'un nouvel utilisateur
-                    tellEveryOne(paquet);
+                    notifyEveryClient(paquet);
 
                     // Informer l'utilisateur de la connexion
-
                     clientPrintWriter.println(paquet);
                     clientPrintWriter.flush();
+                    break;
+
+                case Command.DISCONNECT:
+                    // configuer le paquet avant de l'envoyer
+                    paquet.setCommand(Command.CHAT);
+                    paquet.setMessage("vient de se déconnecter ");
+                    notifyEveryClient(paquet);
+
+                    // Informer l'utilisateur de la déconnexion
+                    clientPrintWriter.println(paquet);
+                    clientPrintWriter.flush();
+                    break;
+
+                case Command.CHAT:
+                    // Informer les autres d'un nouveau message
+                    notifyEveryClient(paquet);
+
+                    // TODO: envoyer message à un seul utilisateur ou groupe d'utilisateur
                     break;
 
                 default:
                     System.out.println("Commande inconnue");
                     break;
                 }
-
             }
 
         } catch (Exception e) {
@@ -73,13 +90,13 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    private void tellEveryOne(Paquet paquet) {
+    public static void notifyEveryClient(Paquet paquet) {
         try {
             for (PrintWriter writer : onlineUsers.values()) {
                 writer.println(paquet.getUser().getUsername() + ":" + paquet.getMessage() + ":" + paquet.getCommand());
                 writer.flush();
-                taConsole.setCaretPosition(taConsole.getDocument().getLength());
             }
+            taConsole.setCaretPosition(taConsole.getDocument().getLength());
         } catch (Exception e) {
             taConsole.append("Erreur lors de l'envoi de la commande à tous les utilisateurs\n");
         }
