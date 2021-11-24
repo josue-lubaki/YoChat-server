@@ -1,19 +1,9 @@
 package yochat.server.models;
 
-public enum Command {
-    LIST("list"),
-    CHAT("chat"),
-    CONNECT("connect"),
-    DISCONNECT("disconnect"),
-    SERVER_ERROR("server_error");
-
-    private String command;
-
-    Command(String command) {
-        this.command = command;
-    }
-
-    public String getCommand() {
-        return command;
-    }
+public final class Command {
+    public static final String LIST = "list";
+    public static final String CHAT = "chat";
+    public static final String CONNECT = "connect";
+    public static final String DISCONNECT = "disconnect";
+    public static final String SERVER_ERROR = "server-error";
 }
