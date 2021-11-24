@@ -25,9 +25,13 @@ public class ServerStart implements Runnable {
             taConsole.setCaretPosition(taConsole.getDocument().getLength());
 
             btnStart.setEnabled(false);
+            btnStart.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
             btnRefresh.setEnabled(true);
+            btnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             btnList.setEnabled(true);
+            btnList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             btnClear.setEnabled(true);
+            btnClear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();

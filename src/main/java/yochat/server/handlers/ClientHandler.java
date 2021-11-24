@@ -1,17 +1,17 @@
 package yochat.server.handlers;
 
+import static yochat.server.handlers.ServerStart.onlineUsers;
+import static yochat.server.ui.serverForm.taConsole;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.HashSet;
 
 import yochat.server.models.Command;
 import yochat.server.models.Paquet;
 import yochat.server.models.User;
-import static yochat.server.ui.serverForm.*;
-import static yochat.server.handlers.ServerStart.onlineUsers;
 
 public class ClientHandler implements Runnable {
 

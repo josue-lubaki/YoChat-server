@@ -5,9 +5,10 @@
  */
 package yochat.server.ui;
 
+import static yochat.server.handlers.ClientHandler.notifyEveryClient;
+import static yochat.server.handlers.ServerStart.onlineUsers;
+
 import java.awt.event.ActionEvent;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 import javax.swing.JOptionPane;
 
@@ -15,8 +16,6 @@ import yochat.server.handlers.ServerStart;
 import yochat.server.models.Command;
 import yochat.server.models.Paquet;
 import yochat.server.models.User;
-import static yochat.server.handlers.ClientHandler.*;
-import static yochat.server.handlers.ServerStart.*;
 
 /**
  *
@@ -46,16 +45,17 @@ public class serverForm extends javax.swing.JFrame {
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-                jDesktopPane1.setBackground(new java.awt.Color(135, 176, 186));
+                jDesktopPane1.setBackground(new java.awt.Color(186, 161, 136));
 
-                LblServer.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+                LblServer.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
                 LblServer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                 LblServer.setText("SERVER");
+                LblServer.setForeground(new java.awt.Color(255, 255, 255));
 
                 btnStart.setBackground(new java.awt.Color(51, 102, 0));
                 btnStart.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
                 btnStart.setText("Start");
-                btnStart.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+                btnStart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
                 btnStart.addActionListener(this::btnStartActionPerformed);
 
                 btnRefresh.setBackground(new java.awt.Color(153, 0, 0));
@@ -174,14 +174,19 @@ public class serverForm extends javax.swing.JFrame {
                 btnStart.setEnabled(false);
                 btnRefresh.setEnabled(false);
                 btnList.setEnabled(false);
+                btnList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
                 btnClear.setEnabled(false);
+                btnClear.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
                 taConsole.setText("");
 
                 try {
                         Thread.sleep(3000);
                         btnRefresh.setEnabled(true);
+                        btnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
                         btnList.setEnabled(true);
+                        btnList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
                         btnClear.setEnabled(true);
+                        btnClear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
                 } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "Server not started");
                         Thread.currentThread().interrupt();
