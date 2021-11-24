@@ -187,7 +187,7 @@ public class serverForm extends javax.swing.JFrame {
                         Thread.currentThread().interrupt();
                 }
 
-                Paquet paquet = new Paquet(new User("SERVEUR"), ": tout le monde est déconnecté", Command.SERVER_ERROR);
+                Paquet paquet = new Paquet(new User("SERVEUR"), " Tout le monde est déconnecté", Command.SERVER_ERROR);
 
                 notifyEveryClient(paquet.toString());
 

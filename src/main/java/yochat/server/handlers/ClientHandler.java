@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Arrays;
+import java.util.HashSet;
 
 import yochat.server.models.Command;
 import yochat.server.models.Paquet;
@@ -31,19 +33,21 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
 
-        String message;
-        String[] data;
+        String messageRecu;
+
+        String[] messageSplit;
         try {
 
-            while ((message = clientBufferedReader.readLine()) != null) {
-                taConsole.append("Received : " + message + "\n");
-                data = message.split(":");
+            while ((messageRecu = clientBufferedReader.readLine()) != null) {
+                taConsole.append("Received : " + messageRecu + "\n");
+                messageSplit = messageRecu.split(":");
 
-                User user = new User(data[0]);
-                String command = data[2];
+                User user = new User(messageSplit[0]);
+                String message = messageSplit[1];
+                String command = messageSplit[2];
 
                 // Usernane : message : command
-                Paquet paquet = new Paquet(user, data[1], command);
+                Paquet paquet = new Paquet(user, message, command);
 
                 switch (paquet.getCommand()) {
                 case Command.CONNECT:
@@ -83,10 +87,47 @@ public class ClientHandler implements Runnable {
                     break;
 
                 case Command.CHAT:
-                    // Informer les autres d'un nouveau message
-                    notifyEveryClient(paquet.toString());
+                    // Vérifier si le message contient @
+                    if (!message.contains("@")) {
+                        // Envoyer le message à tous les utilisateurs
+                        notifyEveryClient(paquet.toString());
+                    } else {
+                        // Faire un split du message contient @
+                        String[] msgSplitWithArobase = message.split(" ");
+                        HashSet<User> usersToSendMessage = new HashSet<>();
 
-                    // TODO: envoyer message à un seul utilisateur ou groupe d'utilisateur
+                        int i = 0;
+                        while (true) {
+                            if (!msgSplitWithArobase[i].contains("@")) {
+                                break;
+                            } else {
+                                String username = msgSplitWithArobase[i].substring(1);
+                                usersToSendMessage.add(new User(username));
+
+                                int nbreCaractere = username.length() + 2;
+                                message = message.substring(nbreCaractere);
+                            }
+                            i++;
+                        }
+
+                        // update le message dans paquet
+                        paquet.setMessage(message);
+
+                        // Envoyer le message à tous les usersToSendMessage
+                        usersToSendMessage.stream().forEach(userToSend -> {
+                            // vérifier s'il est dans onlineUsers, si oui envoyer le message
+                            for (User userOnline : onlineUsers.keySet()) {
+                                if (userOnline.equals(userToSend)) {
+                                    onlineUsers.get(userOnline).println(paquet.toString());
+                                    onlineUsers.get(userOnline).flush();
+                                }
+                            }
+                        });
+                    }
+
+                    // écrire au client son message envoyé
+                    clientPrintWriter.println(message);
+                    clientPrintWriter.flush();
                     break;
 
                 default:
@@ -100,6 +141,11 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    /**
+     * Envoyer un message à tous les utilisateurs connectés
+     * 
+     * @param message le message à envoyer
+     */
     public static void notifyEveryClient(String message) {
         try {
             for (PrintWriter writer : onlineUsers.values()) {
