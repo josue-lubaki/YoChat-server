@@ -6,7 +6,7 @@ public class User {
 
     public User(String username) {
         this.username = username;
-      
+
     }
 
     public String getUsername() {
@@ -17,5 +17,16 @@ public class User {
         this.username = username;
     }
 
-    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        return this.username.equals(other.username);
+    }
+
 }
