@@ -17,16 +17,17 @@ public class ServerStart implements Runnable {
         onlineUsers = new HashMap<>();
 
         try {
-            ServerSocket serverSocket = new ServerSocket(5002);
+            ServerSocket serverSocket = new ServerSocket(5000);
+            System.out.println("server Port : " + serverSocket.getLocalPort());
 
-            taConsole.append("Server started at port 5002\n");
+            taConsole.append("Server started at port 5000\n");
             taConsole.append("Waiting for clients...\n");
             taConsole.setCaretPosition(taConsole.getDocument().getLength());
 
             btnStart.setEnabled(false);
             btnStop.setEnabled(true);
             btnList.setEnabled(true);
-            jButton2.setEnabled(true);
+            btnClear.setEnabled(true);
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
