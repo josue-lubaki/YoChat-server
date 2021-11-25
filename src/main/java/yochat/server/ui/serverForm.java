@@ -8,9 +8,10 @@ package yochat.server.ui;
 import static yochat.server.handlers.ClientHandler.notifyEveryClient;
 import static yochat.server.handlers.ServerStart.onlineUsers;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import yochat.server.handlers.ServerStart;
 import yochat.server.models.Paquet;
@@ -35,7 +36,7 @@ public class serverForm extends javax.swing.JFrame {
         private void initComponents() {
 
                 javax.swing.JDesktopPane jDesktopPane1 = new javax.swing.JDesktopPane();
-                /**
+                /*
                  * @param args the command line arguments
                  */
                 // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -48,22 +49,24 @@ public class serverForm extends javax.swing.JFrame {
                 taConsole = new javax.swing.JTextArea();
 
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                setTitle("YoChat - Server");
+                setIconImage(new ImageIcon("src/main/resources/image/serveur.png").getImage());
 
                 jDesktopPane1.setBackground(new java.awt.Color(186, 161, 136));
 
-                lblServer.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+                lblServer.setFont(new java.awt.Font("Tahoma", Font.BOLD, 18)); // NOI18N
                 lblServer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                 lblServer.setText("SERVER");
                 lblServer.setForeground(new java.awt.Color(255, 255, 255));
 
                 btnStart.setBackground(new java.awt.Color(51, 102, 0));
-                btnStart.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+                btnStart.setFont(new java.awt.Font("Tahoma", Font.BOLD, 12)); // NOI18N
                 btnStart.setText("Start");
                 btnStart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
                 btnStart.addActionListener(this::btnStartActionPerformed);
 
                 btnRefresh.setBackground(new java.awt.Color(153, 0, 0));
-                btnRefresh.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+                btnRefresh.setFont(new java.awt.Font("Tahoma", Font.BOLD, 12)); // NOI18N
                 btnRefresh.setText("Refresh");
                 btnRefresh.setToolTipText("Restart Server");
                 btnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -71,13 +74,13 @@ public class serverForm extends javax.swing.JFrame {
                 btnRefresh.addActionListener(this::btnRefreshActionPerformed);
 
                 btnClear.setBackground(new java.awt.Color(153, 153, 0));
-                btnClear.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+                btnClear.setFont(new java.awt.Font("Tahoma", Font.BOLD, 12)); // NOI18N
                 btnClear.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
                 btnClear.setText("Clear");
                 btnClear.setEnabled(false);
                 btnClear.addActionListener(this::jButton2ActionPerformed);
 
-                btnList.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+                btnList.setFont(new java.awt.Font("Tahoma", Font.BOLD, 12)); // NOI18N
                 btnList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
                 btnList.setText("Users Online List");
                 btnList.setEnabled(false);
@@ -147,7 +150,7 @@ public class serverForm extends javax.swing.JFrame {
                 taConsole.setEditable(false);
                 taConsole.setBackground(new java.awt.Color(102, 102, 102));
                 taConsole.setColumns(20);
-                taConsole.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+                taConsole.setFont(new java.awt.Font("Calibri", Font.BOLD, 14)); // NOI18N
                 taConsole.setForeground(new java.awt.Color(255, 255, 255));
                 taConsole.setRows(5);
                 taConsole.setToolTipText("Affichage des instructions du server");

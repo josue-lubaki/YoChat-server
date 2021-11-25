@@ -18,7 +18,6 @@ public class ServerStart implements Runnable {
 
         try {
             ServerSocket serverSocket = new ServerSocket(5000);
-            System.out.println("server Port : " + serverSocket.getLocalPort());
 
             taConsole.append("Server started at port 5000\n");
             taConsole.append("Waiting for clients...\n");

@@ -93,7 +93,7 @@ public class ClientHandler implements Runnable {
 
                     // envoyer le message au client
                     paquetToSendClient.setMessage(user.getUsername() + " Connection Réussi !");
-                    clientPrintWriter.println(paquetToSendClient.toString());
+                    clientPrintWriter.println(paquetToSendClient);
                     clientPrintWriter.flush();
                     break;
 
@@ -116,7 +116,7 @@ public class ClientHandler implements Runnable {
 
                     // envoyer message au client
                     paquetToSendClient.setMessage("Déconnection Réussi !");
-                    clientPrintWriter.println(paquetToSendClient.toString());
+                    clientPrintWriter.println(paquetToSendClient);
                     clientPrintWriter.flush();
 
                     // fermer la connexion avec le socket du client
@@ -181,12 +181,10 @@ public class ClientHandler implements Runnable {
                     paquetToSendClient.setCommand(Command.LIST);
 
                     StringBuilder msgToSend = new StringBuilder();
-                    msgToSend.append(messageSplit[0] + ", voici la liste des utilisateurs actuellement ligne : ");
+                    msgToSend.append(messageSplit[0]).append(", voici la liste des utilisateurs actuellement ligne : ");
 
                     // configuer le message à envoyer au client demandant la liste
-                    onlineUsers.keySet().forEach(userOnline -> {
-                        msgToSend.append(" @" + userOnline.getUsername());
-                    });
+                    onlineUsers.keySet().forEach(userOnline -> msgToSend.append(" @").append(userOnline.getUsername()));
 
                     paquetToSendClient.setMessage(msgToSend.toString());
                     clientPrintWriter.println(paquetToSendClient);

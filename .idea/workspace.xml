@@ -10,12 +10,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd87e942-2cc6-4124-9d74-7d405a31321f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/image/serveur.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/server_jar/server.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/server_jar/server.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/yochat/server/handlers/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/yochat/server/handlers/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/yochat/server/handlers/ServerStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/yochat/server/handlers/ServerStart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/yochat/server/ui/serverForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/yochat/server/ui/serverForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/yochat/server/handlers/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/yochat/server/handlers/ClientHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/yochat/server/models/Paquet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/yochat/server/models/Paquet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/yochat/server/ui/serverForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/yochat/server/ui/serverForm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/yochat/server/utility/Command.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/yochat/server/utility/Command.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../YoChat-server\exportToHTML" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -54,7 +66,12 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.27787307" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\GitHub\ClientServer\YoChat-server\src\main\resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JAR Application.server.jar">
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="yochat.server.Server" />
       <module name="server" />
@@ -68,8 +85,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="server.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/server_jar/server.jar" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JAR Application.server.jar" />
         <item itemvalue="Application.Server" />
       </list>
     </recent_temporary>
@@ -86,6 +108,7 @@
       <workItem from="1637745368451" duration="600000" />
       <workItem from="1637746206080" duration="6000" />
       <workItem from="1637746818899" duration="239000" />
+      <workItem from="1637841452155" duration="1550000" />
     </task>
     <servers />
   </component>
