@@ -123,6 +123,7 @@ public class ClientHandler implements Runnable {
                     try {
                         Thread.sleep(1000);
                         clientSocket.close();
+                        return;
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -171,7 +172,28 @@ public class ClientHandler implements Runnable {
                         clientPrintWriter.println(paquet);
                         clientPrintWriter.flush();
                     }
+                    break;
 
+                case Command.LIST:
+                    // configurer le paquet avant de l'envoyer
+                    user.setUsername("SERVEUR");
+                    paquetToSendClient.setUser(user);
+                    paquetToSendClient.setCommand(Command.LIST);
+
+                    StringBuilder msgToSend = new StringBuilder();
+                    msgToSend.append(messageSplit[0] + ", voici la liste des utilisateurs actuellement ligne : ");
+
+                    // configuer le message à envoyer au client demandant la liste
+                    onlineUsers.keySet().forEach(userOnline -> {
+                        msgToSend.append(" @" + userOnline.getUsername());
+                    });
+
+                    paquetToSendClient.setMessage(msgToSend.toString());
+                    clientPrintWriter.println(paquetToSendClient);
+                    clientPrintWriter.flush();
+
+                    // reset username
+                    user.setUsername(messageSplit[0]);
                     break;
 
                 default:

@@ -184,7 +184,7 @@ public class serverForm extends javax.swing.JFrame {
                 taConsole.setText("");
 
                 try {
-                        Thread.sleep(3000);
+                        Thread.sleep(2000);
                         btnRefresh.setEnabled(true);
                         btnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
                         btnList.setEnabled(true);
