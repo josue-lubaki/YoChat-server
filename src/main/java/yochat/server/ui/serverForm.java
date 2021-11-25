@@ -13,9 +13,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
 import yochat.server.handlers.ServerStart;
-import yochat.server.models.Command;
 import yochat.server.models.Paquet;
 import yochat.server.models.User;
+import yochat.server.utility.Command;
 
 /**
  *
@@ -198,7 +198,7 @@ public class serverForm extends javax.swing.JFrame {
 
                 Paquet paquet = new Paquet(new User("SERVEUR"), " Tout le monde est déconnecté", Command.SERVER_ERROR);
 
-                notifyEveryClient(paquet.toString());
+                notifyEveryClient(paquet.toString(), null);
 
                 // Supprimer tous les utilisateurs connectés
                 ServerStart.deleteAllUsers();

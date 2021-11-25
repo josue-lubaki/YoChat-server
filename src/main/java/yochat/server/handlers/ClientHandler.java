@@ -9,9 +9,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.HashSet;
 
-import yochat.server.models.Command;
 import yochat.server.models.Paquet;
 import yochat.server.models.User;
+import yochat.server.utility.Command;
 
 public class ClientHandler implements Runnable {
 
@@ -40,7 +40,7 @@ public class ClientHandler implements Runnable {
 
             while ((messageRecu = clientBufferedReader.readLine()) != null) {
                 taConsole.append("Received : " + messageRecu + "\n");
-                messageSplit = messageRecu.split(":");
+                messageSplit = messageRecu.split("%%");
 
                 User user = new User(messageSplit[0]);
                 String message = messageSplit[1];
@@ -48,6 +48,7 @@ public class ClientHandler implements Runnable {
 
                 // Usernane : message : command
                 Paquet paquet = new Paquet(user, message, command);
+                Paquet PaquetToSendClient = new Paquet(user, message, command);
 
                 switch (paquet.getCommand()) {
                 case Command.CONNECT:
@@ -59,22 +60,33 @@ public class ClientHandler implements Runnable {
                         return;
                     }
 
+                    // ajouter l'utilisateur à la liste des utilisateurs connectés
                     onlineUsers.put(paquet.getUser(), clientPrintWriter);
 
                     // configurer le paquet avant de l'envoyer
-                    paquet.setMessage(user.getUsername() + " vient de se connecter ");
+                    paquet.setMessage(user.getUsername() + " vient de se connecter");
                     user.setUsername("SERVEUR");
                     paquet.setUser(user);
                     paquet.setCommand(Command.CHAT);
 
                     // Informer les autres d'un nouvel utilisateur
-                    notifyEveryClient(paquet.toString());
+                    String usernameExcept = PaquetToSendClient.getUser().getUsername();
+                    notifyEveryClient(paquet.toString(), usernameExcept);
+
+                    // faire un set du nom de l'utilisateur, récupérer le nom de l'utilisateur sur
+                    // le message que le server écrit
                     user.setUsername(paquet.getMessage().split(" ")[0]);
+
+                    // envoyer le message au client
+                    PaquetToSendClient.setMessage("Connection Réussi !");
+                    clientPrintWriter.println(PaquetToSendClient.toString());
+                    clientPrintWriter.flush();
                     break;
 
                 case Command.DISCONNECT:
                     // Supprimer l'utilisateur de la liste des utilisateurs connectés
-                    onlineUsers.remove(user);
+                    // l'utilisateur avec le nom user.getUsername()
+                    onlineUsers.keySet().removeIf(user1 -> user1.getUsername().equals(user.getUsername()));
 
                     // configurer le paquet avant de l'envoyer
                     paquet.setMessage(user.getUsername() + " vient de se déconnecter ");
@@ -82,16 +94,32 @@ public class ClientHandler implements Runnable {
                     paquet.setUser(user);
                     paquet.setCommand(Command.CHAT);
 
-                    notifyEveryClient(paquet.toString());
+                    notifyEveryClient(paquet.toString(), null);
+
+                    // faire un set du nom de l'utilisateur, récupérer le nom de l'utilisateur sur
+                    // le message que le server écrit
                     user.setUsername(paquet.getMessage().split(" ")[0]);
-                    clientSocket.close();
+
+                    // envoyer message au client
+                    PaquetToSendClient.setMessage("Déconnection Réussi !");
+                    clientPrintWriter.println(PaquetToSendClient.toString());
+                    clientPrintWriter.flush();
+
+                    // fermer la connexion avec le socket du client
+                    try {
+                        Thread.sleep(500);
+                        clientSocket.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                     break;
 
                 case Command.CHAT:
                     // Vérifier si le message contient @
                     if (!message.contains("@")) {
                         // Envoyer le message à tous les utilisateurs
-                        notifyEveryClient(paquet.toString());
+                        notifyEveryClient(paquet.toString(), null);
                     } else {
                         // Faire un split du message contient @
                         String[] msgSplitWithArobase = message.split(" ");
@@ -127,8 +155,8 @@ public class ClientHandler implements Runnable {
                     }
 
                     // écrire au client son message envoyé
-                    clientPrintWriter.println(message);
-                    clientPrintWriter.flush();
+                    // clientPrintWriter.println(message);
+                    // clientPrintWriter.flush();
                     break;
 
                 default:
@@ -145,14 +173,28 @@ public class ClientHandler implements Runnable {
     /**
      * Envoyer un message à tous les utilisateurs connectés
      * 
-     * @param message le message à envoyer
+     * @param message          le message à envoyer
+     * @param usernameExcepted le nom de l'utilisateur à exclure, sinon null
      */
-    public static void notifyEveryClient(String message) {
+    public static void notifyEveryClient(String message, String usernameExcepted) {
         try {
-            for (PrintWriter writer : onlineUsers.values()) {
-                writer.println(message);
-                writer.flush();
+            // vérifier si usernameExcepted est null
+            if (usernameExcepted == null) {
+                // envoyer le message à tous les utilisateurs
+                onlineUsers.forEach((user, printWriter) -> {
+                    printWriter.println(message);
+                    printWriter.flush();
+                });
+            } else {
+                // envoyer le message à tous les utilisateurs sauf usernameExcepted
+                onlineUsers.forEach((user, printWriter) -> {
+                    if (!user.getUsername().equals(usernameExcepted)) {
+                        printWriter.println(message);
+                        printWriter.flush();
+                    }
+                });
             }
+
             taConsole.setCaretPosition(taConsole.getDocument().getLength());
         } catch (Exception e) {
             taConsole.append("Erreur lors de l'envoi de la commande à tous les utilisateurs\n");

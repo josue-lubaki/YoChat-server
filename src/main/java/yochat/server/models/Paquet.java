@@ -37,6 +37,6 @@ public class Paquet {
 
     @Override
     public String toString() {
-        return user.getUsername() + ":" + message + ":" + command;
+        return user.getUsername() + "%%" + message + "%%" + command;
     }
 }
