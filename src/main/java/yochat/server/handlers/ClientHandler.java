@@ -39,7 +39,8 @@ public class ClientHandler implements Runnable {
         try {
 
             while ((messageRecu = clientBufferedReader.readLine()) != null) {
-                taConsole.append("Received : " + messageRecu + "\n");
+
+                // taConsole.append("Received : " + messageRecu.replace("%%", " - ") + "\n");
                 messageSplit = messageRecu.split("%%");
 
                 User user = new User(messageSplit[0]);
@@ -48,15 +49,28 @@ public class ClientHandler implements Runnable {
 
                 // Usernane : message : command
                 Paquet paquet = new Paquet(user, message, command);
-                Paquet PaquetToSendClient = new Paquet(user, message, command);
+                Paquet paquetToSendClient = new Paquet(user, message, command);
+
+                taConsole.append("Received : " + paquet.toString().replace("%%", " | ") + "\n");
 
                 switch (paquet.getCommand()) {
                 case Command.CONNECT:
                     // enregistrement d'un nouvel utilisateur
-                    if (onlineUsers.containsKey(paquet.getUser())) {
-                        clientPrintWriter.println("SERVEUR: Le Username [" + paquet.getUser().getUsername()
-                                + "] est déjà pris:" + Command.SERVER_ERROR);
+                    // vérifier si un User avec le meme username existe déjà
+                    boolean isExistUser = onlineUsers.keySet().stream()
+                            .anyMatch(onlineUser -> onlineUser.getUsername().equalsIgnoreCase(user.getUsername()));
+
+                    if (isExistUser) {
+                        paquetToSendClient.setCommand(Command.SERVER_ERROR);
+                        paquetToSendClient.setMessage(
+                                " L'Utilisateur avec comme username [" + user.getUsername() + "] existe déjà !");
+                        user.setUsername("SERVEUR");
+                        paquetToSendClient.setUser(user);
+                        clientPrintWriter.println(paquetToSendClient);
                         clientPrintWriter.flush();
+
+                        // reset username
+                        user.setUsername(messageSplit[0]);
                         return;
                     }
 
@@ -70,7 +84,7 @@ public class ClientHandler implements Runnable {
                     paquet.setCommand(Command.CHAT);
 
                     // Informer les autres d'un nouvel utilisateur
-                    String usernameExcept = PaquetToSendClient.getUser().getUsername();
+                    String usernameExcept = paquetToSendClient.getUser().getUsername();
                     notifyEveryClient(paquet.toString(), usernameExcept);
 
                     // faire un set du nom de l'utilisateur, récupérer le nom de l'utilisateur sur
@@ -78,8 +92,8 @@ public class ClientHandler implements Runnable {
                     user.setUsername(paquet.getMessage().split(" ")[0]);
 
                     // envoyer le message au client
-                    PaquetToSendClient.setMessage("Connection Réussi !");
-                    clientPrintWriter.println(PaquetToSendClient.toString());
+                    paquetToSendClient.setMessage("Connection Réussi !");
+                    clientPrintWriter.println(paquetToSendClient.toString());
                     clientPrintWriter.flush();
                     break;
 
@@ -101,18 +115,17 @@ public class ClientHandler implements Runnable {
                     user.setUsername(paquet.getMessage().split(" ")[0]);
 
                     // envoyer message au client
-                    PaquetToSendClient.setMessage("Déconnection Réussi !");
-                    clientPrintWriter.println(PaquetToSendClient.toString());
+                    paquetToSendClient.setMessage("Déconnection Réussi !");
+                    clientPrintWriter.println(paquetToSendClient.toString());
                     clientPrintWriter.flush();
 
                     // fermer la connexion avec le socket du client
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(1000);
                         clientSocket.close();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                     break;
 
                 case Command.CHAT:
