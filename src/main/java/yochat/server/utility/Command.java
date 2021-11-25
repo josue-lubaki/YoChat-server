@@ -1,4 +1,4 @@
-package yochat.server.models;
+package yochat.server.utility;
 
 public final class Command {
     public static final String LIST = "list";
