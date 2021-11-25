@@ -174,7 +174,7 @@ public class serverForm extends javax.swing.JFrame {
                 setLocationRelativeTo(null);
         }// </editor-fold>//GEN-END:initComponents
 
-        private void btnRefreshActionPerformed(ActionEvent e) {
+        protected void btnRefreshActionPerformed(ActionEvent e) {
                 btnStart.setEnabled(false);
                 btnRefresh.setEnabled(false);
                 btnList.setEnabled(false);
@@ -206,20 +206,20 @@ public class serverForm extends javax.swing.JFrame {
 
         }
 
-        private void btnListActionPerformed(ActionEvent e) {
+        protected void btnListActionPerformed(ActionEvent e) {
                 taConsole.append("Liste des clients connectés :\n");
                 for (User user : onlineUsers.keySet()) {
-                        taConsole.append(user.getUsername() + "\n");
+                        taConsole.append(" @" + user.getUsername() + "\n");
                         taConsole.setCaretPosition(taConsole.getDocument().getLength());
                 }
         }
 
-        private void btnStartActionPerformed(ActionEvent e) {
+        protected void btnStartActionPerformed(ActionEvent e) {
                 Thread startServer = new Thread(new ServerStart());
                 startServer.start();
         }
 
-        private void jButton2ActionPerformed(ActionEvent e) {
+        protected void jButton2ActionPerformed(ActionEvent e) {
                 // effacer les contenues de taConsole
                 taConsole.removeAll();
                 taConsole.setText("");
