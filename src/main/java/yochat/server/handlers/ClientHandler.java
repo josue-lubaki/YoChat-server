@@ -92,7 +92,7 @@ public class ClientHandler implements Runnable {
                     user.setUsername(paquet.getMessage().split(" ")[0]);
 
                     // envoyer le message au client
-                    paquetToSendClient.setMessage("Connection Réussi !");
+                    paquetToSendClient.setMessage(user.getUsername() + " Connection Réussi !");
                     clientPrintWriter.println(paquetToSendClient.toString());
                     clientPrintWriter.flush();
                     break;
@@ -165,11 +165,13 @@ public class ClientHandler implements Runnable {
                                 }
                             }
                         });
+
+                        paquet.setMessage(messageSplit[1]);
+                        // écrire au client son message envoyé
+                        clientPrintWriter.println(paquet);
+                        clientPrintWriter.flush();
                     }
 
-                    // écrire au client son message envoyé
-                    // clientPrintWriter.println(message);
-                    // clientPrintWriter.flush();
                     break;
 
                 default:
