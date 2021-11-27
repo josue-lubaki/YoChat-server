@@ -1,5 +1,5 @@
 # YoChat-Server / Application
-<a href="https://github.com/josue-lubaki/YoChat-server/raw/main/out/artifacts/client_jar/client.jar"><img src="https://github.com/josue-lubaki/YoChat-server/blob/main/screen/jar.png" width="50" height="50" alt="Jar"> Download</a>
+<a href="https://github.com/josue-lubaki/YoChat-server/blob/main/out/artifacts/server_jar/server.jar"><img src="https://github.com/josue-lubaki/YoChat-server/blob/main/screen/jar.png" width="50" height="50" alt="Jar"> Download</a>
 
 ## Properties
 - Language : Java
