@@ -10,9 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f179f009-cbfc-46d4-a531-5ec4e6f86c89" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/server_jar/server.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/server_jar/server.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/handlers/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/handlers/ClientHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,10 +81,23 @@
       <updated>1637971883675</updated>
       <workItem from="1637971884971" duration="1015000" />
       <workItem from="1637976521946" duration="180000" />
+      <workItem from="1637980110050" duration="9000" />
+      <workItem from="1637988202393" duration="982000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
