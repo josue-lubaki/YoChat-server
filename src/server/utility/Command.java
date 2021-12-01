@@ -1,5 +1,9 @@
 package server.utility;
 
+/**
+ * @author Josue Lubaki & Ismael Coulibaly
+ * @version 1.0
+ */
 public final class Command {
     public static final String LIST = "list";
     public static final String CHAT = "chat";

@@ -1,5 +1,9 @@
 package server.utility;
 
+/**
+ * @author Josue Lubaki & Ismael Coulibaly
+ * @version 1.0
+ */
 public class utils {
 
     // Methode qui permet de mettre le mot en capitalize (premiere lettre en

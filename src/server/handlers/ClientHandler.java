@@ -14,6 +14,10 @@ import server.models.User;
 import server.utility.Command;
 import static server.utility.utils.*;
 
+/**
+ * @author Josue Lubaki & Ismael Coulibaly
+ * @version 1.0
+ */
 public class ClientHandler implements Runnable {
 
     private Socket clientSocket;

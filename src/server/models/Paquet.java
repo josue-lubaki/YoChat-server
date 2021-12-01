@@ -1,5 +1,9 @@
 package server.models;
 
+/**
+ * @author Josue Lubaki & Ismael Coulibaly
+ * @version 1.0
+ */
 public class Paquet {
     private User user;
     private String message;
