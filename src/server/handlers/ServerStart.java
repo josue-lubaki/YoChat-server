@@ -8,6 +8,10 @@ import java.util.HashMap;
 import server.models.User;
 import static server.ui.serverForm.*;
 
+/**
+ * @author Josue Lubaki & Ismael Coulibaly
+ * @version 1.0
+ */
 public class ServerStart implements Runnable {
 
     public static HashMap<User, PrintWriter> onlineUsers;

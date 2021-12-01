@@ -4,6 +4,10 @@ import server.ui.serverForm;
 
 import javax.swing.*;
 
+/**
+ * @author Josue Lubaki & Ismael Coulibaly
+ * @version 1.0
+ */
 public class Server {
     public static void main(String[] args) {
         try {
@@ -13,10 +17,11 @@ public class Server {
                     break;
                 }
             }
-        } catch (ClassNotFoundException | UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException ex) {
+        } catch (ClassNotFoundException | UnsupportedLookAndFeelException | IllegalAccessException
+                | InstantiationException ex) {
             java.util.logging.Logger.getLogger(Server.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+        // </editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new serverForm().setVisible(true));

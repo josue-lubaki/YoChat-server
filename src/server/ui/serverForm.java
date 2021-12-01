@@ -19,8 +19,8 @@ import server.models.User;
 import server.utility.Command;
 
 /**
- *
- * @author coulibai
+ * @author Josue Lubaki & Ismael Coulibaly
+ * @version 1.0
  */
 public class serverForm extends javax.swing.JFrame {
 
@@ -32,14 +32,14 @@ public class serverForm extends javax.swing.JFrame {
         }
 
         // <editor-fold defaultstate="collapsed" desc="Generated
-        // Code">                          
+        // Code">
         private void initComponents() {
 
                 javax.swing.JDesktopPane jDesktopPane1 = new javax.swing.JDesktopPane();
                 /*
                  * @param args the command line arguments
                  */
-                // Variables declaration - do not modify                     
+                // Variables declaration - do not modify
                 javax.swing.JLabel lblServer = new javax.swing.JLabel();
                 btnStart = new javax.swing.JButton();
                 btnRefresh = new javax.swing.JButton();
@@ -175,7 +175,7 @@ public class serverForm extends javax.swing.JFrame {
 
                 pack();
                 setLocationRelativeTo(null);
-        }// </editor-fold>                        
+        }// </editor-fold>
 
         protected void btnRefreshActionPerformed(ActionEvent e) {
                 setIconImage(new ImageIcon("src/resources/images/server-down.png").getImage());
@@ -236,5 +236,5 @@ public class serverForm extends javax.swing.JFrame {
         public static javax.swing.JButton btnRefresh;
         public static javax.swing.JButton btnClear;
         public static javax.swing.JTextArea taConsole;
-        // End of variables declaration                   
+        // End of variables declaration
 }
