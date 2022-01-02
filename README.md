@@ -1,4 +1,4 @@
-# YoChat-Server / Application
+# YoChat-Server / Application [![wakatime](https://wakatime.com/badge/github/ismaelcoulibaly/YoChat-server.svg)](https://wakatime.com/badge/github/ismaelcoulibaly/YoChat-server)
 <a href="https://github.com/josue-lubaki/YoChat-server/raw/main/out/artifacts/server_jar/server.jar"><img src="https://github.com/josue-lubaki/YoChat-server/blob/main/screen/jar.png" width="50" height="50" alt="Jar"> Download</a>
 
 ## Properties
